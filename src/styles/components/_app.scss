@@ -1,0 +1,22 @@
+
+#app {
+  overflow: hidden;
+  height: 100vh;
+}
+
+.app-container {
+  display: grid;
+  grid-template: auto / 150px auto;
+  height: 100%;
+  overflow: hidden;
+}
+
+aside {
+  overflow: auto;
+  border-right: 2px solid grey;
+}
+
+main {
+  overflow: auto;
+}
+
