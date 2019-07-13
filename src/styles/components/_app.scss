@@ -2,18 +2,19 @@
 #app {
   overflow: hidden;
   height: 100vh;
+  background: var(--background);
 }
 
 .app-container {
   display: grid;
-  grid-template: auto / 150px auto;
+  grid-template: auto / 400px auto;
   height: 100%;
   overflow: hidden;
 }
 
 aside {
   overflow: auto;
-  border-right: 2px solid grey;
+  padding: 20px 16px;
 }
 
 main {
