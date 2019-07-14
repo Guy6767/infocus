@@ -13,6 +13,7 @@ const AddTaskFormToolbar = props => {
       <button 
         className="add-task" 
         disabled={!props.title}
+        onClick={props.addTask}
       >
         Add
       </button>

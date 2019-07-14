@@ -68,7 +68,7 @@
   text-align: center;
   margin: 20px 0;
   font-size: 25px;
-  padding: 0 50px;
+  padding: 0 45px;
 }
 
 .add-task-form .daily-goal .digits {
@@ -96,6 +96,41 @@
 
 .add-task-form .digits-preview p {
   margin-right: 6px;
+  margin-top: 5px;
+  
+}
+
+.add-task-form .weekend-off {
+  display: flex;
+  font-size: 16px;
+}
+
+.add-task-form .weekend-off p {
+  color: grey;
+  font-weight: 600;
+
+  &.active {
+    color: black;
+  }
+}
+
+.add-task-form .weekend-off input {
+  width: 16px;
+  height: 16px;
+  margin-right: 15px;
+  margin-top: auto;
+}
+
+.add-task-form .task-description {
+  border: none;
+  font-family: 'Nunito';
+  padding: 15px 20px;
+  border-radius: 20px;
+  background: whitesmoke;
+  font-size: 16px;
+  resize: none;
+  min-height: 50px;
+  margin-top: 5px;
 }
 
 

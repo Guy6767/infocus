@@ -67,7 +67,7 @@ export default class Login extends React.Component {
           {
             this.state.isLoading 
             ?
-            <div className="loading-spinner"></div>
+            <div className="loading"></div>
             :
             <button disabled={!this.state.loginInput} >
               Log In

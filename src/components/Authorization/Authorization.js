@@ -13,7 +13,7 @@ export default class Authorization extends React.Component {
  }
 
  toggleSignupForm() {
-  this.setState(prevState => ({hasAccount: !prevState.hasAccount}));
+  this.setState({hasAccount: !this.state.hasAccount});
  }
 
   render() {

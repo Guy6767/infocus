@@ -10,15 +10,24 @@ export default class TaskList extends React.Component {
     super(props);
     this.updateSearchInput = this.updateSearchInput.bind(this);
     this.toggleAddTaskForm = this.toggleAddTaskForm.bind(this);
+    this.loadTasks = this.loadTasks.bind(this);
+
     this.state = {
       tasks: [],
       filteredTasks: [],
       search: '',
-      onAddTaskForm: true
+      onAddTaskForm: false,
+      isLoading: false
     }
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.loadTasks();
+  } 
+
+  async loadTasks() {
+    this.setState({isLoading: true});
+
     const userId = this.props.userId;
 
     try {
@@ -33,7 +42,8 @@ export default class TaskList extends React.Component {
     catch (error) {
       console.error(error);
     }
-  } 
+    this.setState({isLoading: false});
+  }
 
   updateSearchInput(e) {
     const search =  e.target.value;
@@ -46,7 +56,7 @@ export default class TaskList extends React.Component {
   }
 
   toggleAddTaskForm() {
-    this.setState(prevState => ({onAddTaskForm: !prevState.onAddTaskForm}));
+    this.setState({onAddTaskForm: !this.state.onAddTaskForm});
   }
 
   render() {
@@ -58,19 +68,26 @@ export default class TaskList extends React.Component {
           ?
           <AddTaskForm 
             toggleAddTaskForm={this.toggleAddTaskForm} 
+            userId={this.props.userId}
+            loadTasks={this.loadTasks}
           />
           :
           <div className="tasks-list">
-          <TaskListToolbar 
-            updateSearchInput={this.updateSearchInput}
-            toggleAddTaskForm={this.toggleAddTaskForm} 
-            search={this.state.search} 
-          />
-          {
-            this.state.filteredTasks.map(task => 
-              <Task task={task} key={task.title} />
-            )
-          }
+            <TaskListToolbar 
+              updateSearchInput={this.updateSearchInput}
+              toggleAddTaskForm={this.toggleAddTaskForm} 
+              search={this.state.search} 
+            />
+            
+            {
+              this.state.isLoading
+              ?
+              <div className="loading"></div>
+              :
+              this.state.filteredTasks.map(task => 
+                <Task task={task} key={task.title} />
+              )
+            }
           </div>
         }
       </div>

@@ -29,25 +29,6 @@
   }
 }
 
-.authorization .loading-spinner {
-  border: 1px solid #f3f3f3; 
-  border-top: 1px solid var(--primary); 
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  animation: spin 1s linear infinite;
-  margin-left: 40%;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.authorization .error {
-  color: #ed4956;
-}
-
 .toggle-form {
   font-size: 14px;
 }
