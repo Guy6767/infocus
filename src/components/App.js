@@ -1,6 +1,6 @@
 import React from 'react';
 import Authorization from './Authorization/Authorization';
-import TaskList from './TasksList';
+import TaskList from './TaskList/TasksList';
 import Footer from './Footer/Footer';
 
 export default class App extends React.Component {

@@ -1,0 +1,101 @@
+
+.add-task-form {
+  padding: 0 20px 60px 20px;  
+}
+
+.add-task-form .toolbar {
+  color: var(--primary);
+  padding: 10px 5px 20px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-task-form .add-task {
+  font-size: 16px;
+  border: none;
+  background: none;
+  padding: 0;
+  color: var(--primary);
+  margin-left: auto;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.add-task-form .add-task:disabled {
+  color: #bdbdbd;
+  &:hover {
+    cursor: auto;
+    opacity: 1;
+  }
+}
+
+.add-task-form .cancel {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.add-task-form form {
+  padding: 10px 5px 20px 5px;
+  display: grid;
+  grid-row-gap: 20px;
+}
+
+.add-task-form input {
+  border: none;
+  width: 100%;
+  font-family: 'Nunito';
+  background: transparent;
+}
+
+ .add-task-form .title {
+  color: black;
+  font-size: 50px;
+  font-weight: 600;
+}
+
+.add-task-form .subtitle {
+  color: var(--primary);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.add-task-form .daily-goal {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 25px;
+  padding: 0 50px;
+}
+
+.add-task-form .daily-goal .digits {
+  display: flex;
+  justify-content: space-between;
+}
+
+.add-task-form .daily-goal input, .add-task-form .daily-goal input::placeholder {
+  font-size: 60px;
+  width: 80px;
+}
+
+.add-task-form .daily-goal span {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 60px;
+}
+
+.add-task-form .digits-preview {
+  display: flex;
+  font-size: 16px;
+  color: #a2a2a2;
+}
+
+.add-task-form .digits-preview p {
+  margin-right: 6px;
+}
+
+

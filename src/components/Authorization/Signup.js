@@ -5,9 +5,7 @@ export default class Signup extends React.Component {
 
   constructor(props) {
     super(props);
-    this.updateUsernameInput = this.updateUsernameInput.bind(this);
-    this.updateEmailInput = this.updateEmailInput.bind(this);
-    this.updatePasswordInput = this.updatePasswordInput.bind(this);
+    this.updateInputFields = this.updateInputFields.bind(this);
     this.signup = this.signup.bind(this);
     this.state = {
       usernameInput: '',
@@ -18,22 +16,23 @@ export default class Signup extends React.Component {
     }
   }
 
-  updateUsernameInput(e) {
-    this.setState({
-      usernameInput: e.target.value
-    })
-  }
-
-  updateEmailInput(e) {
-    this.setState({
-      emailInput: e.target.value
-    })
-  }
-
-  updatePasswordInput(e) {
-    this.setState({
-      passwordInput: e.target.value
-    })
+  updateInputFields(e) {
+    switch(e.target.name) {
+      case 'username':
+        this.setState({
+          usernameInput: e.target.value
+        });
+        break;
+      case 'email':
+        this.setState({
+          emailInput: e.target.value
+        });
+        break;
+      default:
+        this.setState({
+          passwordInput: e.target.value
+        });
+    }
   }
 
   async signup(e) {
@@ -69,14 +68,12 @@ export default class Signup extends React.Component {
       <div className="signup-screen">
         <h1>Signup</h1>
         <p>Enter your Email and password to sign up to infocus.</p>
-        <form onSubmit={this.signup}>
+        <form onSubmit={this.signup} spellCheck="false">
           <input 
             name="username" 
             type="text" 
             placeholder="username"
-            autoComplete="off"
-            spellCheck="false"
-            onChange={this.updateUsernameInput}
+            onChange={this.updateInputFields}
             value={this.state.usernameInput}
           >
           </input>
@@ -84,9 +81,7 @@ export default class Signup extends React.Component {
             name="email" 
             type="text" 
             placeholder="email"
-            autoComplete="off"
-            spellCheck="false"
-            onChange={this.updateEmailInput}
+            onChange={this.updateInputFields}
             value={this.state.emailInput}
           >
           </input>
@@ -94,9 +89,7 @@ export default class Signup extends React.Component {
             name="password" 
             type="password" 
             placeholder="password"
-            autoComplete="off"
-            spellCheck="false"
-            onChange={this.updatePasswordInput}
+            onChange={this.updateInputFields}
             value={this.state.passwordInput}
           >
           </input>

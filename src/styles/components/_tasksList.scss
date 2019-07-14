@@ -1,20 +1,13 @@
 
 .tasks-list {
-  padding: 0 20px;  
+  padding: 0 20px 60px 20px;  
 }
 
 .tasks-list .toolbar {
-  display: flex;
-  padding: 10px 0 20px 0;
-  justify-content: space-between;
   color: var(--primary);
-}
-
-.tasks-list .add-task, .tasks-list .edit-tasks {
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
+  padding: 10px 5px 20px 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .tasks-list .search {
@@ -23,7 +16,7 @@
   background: transparent;
 
   transition: box-shadow, padding 0.2s;
-  &:focus, &:hover {
+  &:focus {
     box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15);
     padding: 10px 15px;
     border-radius: 15px;
@@ -31,9 +24,16 @@
   }
 }
 
-.tasks-list ::placeholder {
+.tasks-list .add-task {
+
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.tasks-list .search::placeholder {
   color: var(--primary);
-  text-align: center;
 }
 
 .task {

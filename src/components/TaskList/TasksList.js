@@ -1,15 +1,20 @@
 import React from 'react';
 import axios from 'axios';
+import Task from './Task';
+import TaskListToolbar from './TaskListToolbar';
+import AddTaskForm from './AddTaskForm';
 
 export default class TaskList extends React.Component {
 
   constructor(props) {
     super(props);
     this.updateSearchInput = this.updateSearchInput.bind(this);
+    this.toggleAddTaskForm = this.toggleAddTaskForm.bind(this);
     this.state = {
       tasks: [],
       filteredTasks: [],
-      search: ''
+      search: '',
+      onAddTaskForm: true
     }
   }
 
@@ -40,39 +45,34 @@ export default class TaskList extends React.Component {
     this.setState({filteredTasks});
   }
 
+  toggleAddTaskForm() {
+    this.setState(prevState => ({onAddTaskForm: !prevState.onAddTaskForm}));
+  }
+
   render() {
 
     return (
-      <div className="tasks-list">
-      <div className="toolbar">
-        <span className="add-task">+</span>
-        <input 
-          className="search"
-          name="search" 
-          type="text" 
-          placeholder="Search"
-          autoComplete="off"
-          spellCheck="false"
-          onChange={this.updateSearchInput}
-          value={this.state.search}
-        >
-        </input>
-        <p className="edit-tasks">Edit</p>
-      </div>
-      {
-        this.state.filteredTasks.map(task => {
-          return (
-            <div 
-              className="task"
-              key={task}
-            >
-              <h2 className="title">{task.title}</h2>
-              <p className="subtitle">{task.subtitle || ''}</p>
-              <p className="time-left">{task.dailyGoalMins} MIN LEFT</p>
-            </div>
-          );
-        })
-      }
+      <div>
+        {
+          this.state.onAddTaskForm
+          ?
+          <AddTaskForm 
+            toggleAddTaskForm={this.toggleAddTaskForm} 
+          />
+          :
+          <div className="tasks-list">
+          <TaskListToolbar 
+            updateSearchInput={this.updateSearchInput}
+            toggleAddTaskForm={this.toggleAddTaskForm} 
+            search={this.state.search} 
+          />
+          {
+            this.state.filteredTasks.map(task => 
+              <Task task={task} key={task.title} />
+            )
+          }
+          </div>
+        }
       </div>
     );
   }
