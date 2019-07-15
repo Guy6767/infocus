@@ -78,15 +78,14 @@ export default class TaskList extends React.Component {
               toggleAddTaskForm={this.toggleAddTaskForm} 
               search={this.state.search} 
             />
-            
             {
               this.state.isLoading
               ?
               <div className="loading"></div>
               :
               this.state.filteredTasks.map(task => 
-                <Task task={task} key={task.title} />
-              )
+                <Task task={task} key={task._id} />
+              ).reverse()
             }
           </div>
         }

@@ -27,8 +27,8 @@ class AddTaskForm extends React.Component {
     
     try {
 
-      const hours = parseInt(this.state.dailyGoalHours.replace(/^0+/, '')) * 60;
-      const minutes = parseInt(this.state.dailyGoalMinutes.replace(/^0+/, ''));
+      const hours = parseInt(this.state.dailyGoalHours.replace(/^0+/, '')) * 60 || 0;
+      const minutes = parseInt(this.state.dailyGoalMinutes.replace(/^0+/, '')) || 0;
 
       await axios.post(
         `${process.env.REACT_APP_API_URL}/tasks/create`,
