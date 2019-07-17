@@ -3,6 +3,7 @@ import AddTaskFormToolbar from './AddTaskFormToolbar';
 import axios from 'axios';
 
 class AddTaskForm extends React.Component {
+
   constructor(props) {
     super(props);
     this.updateInputFields = this.updateInputFields.bind(this);
@@ -27,18 +28,23 @@ class AddTaskForm extends React.Component {
     
     try {
 
-      const hours = parseInt(this.state.dailyGoalHours.replace(/^0+/, '')) * 60 || 0;
-      const minutes = parseInt(this.state.dailyGoalMinutes.replace(/^0+/, '')) || 0;
+      const hoursToMinutes = parseInt(this.state.dailyGoalHours.replace(/^0+/, '')) * 60 || 0;
+      const minutes = (parseInt(this.state.dailyGoalMinutes.replace(/^0+/, '')) || 0) + hoursToMinutes;
+
+      const image = await fetch(
+        `https://source.unsplash.com/1600x900/?${this.state.title}`
+      );
 
       await axios.post(
         `${process.env.REACT_APP_API_URL}/tasks/create`,
         {
           owner: this.props.userId,
           title: this.state.title,
-          subtitle: this.state.title,
+          subtitle: this.state.subtitle,
           weekendOff: this.state.weekendOff,
           description: this.state.description,
-          dailyGoalMins: hours + minutes
+          imageURL: image.url,
+          dailyGoal: minutes * 60
         }
       );
     } 
@@ -46,9 +52,10 @@ class AddTaskForm extends React.Component {
       this.setState({error: 'the task was not added'});
       console.error(error);
     }
+
     this.props.toggleAddTaskForm();
     this.props.loadTasks();
-    this.setState({isLoading: false});
+    this.setState({isLoading: false});;
   }
 
   updateInputFields(e) {

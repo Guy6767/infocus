@@ -1,0 +1,25 @@
+
+.task-overview .bar {
+  width: 100%;
+  background: #E3E2E2; 
+  margin: 60px 0 20px 0;
+  border-radius: 15px;
+}
+
+.task-overview .progress {
+  width: 0%;
+  background: var(--primary);
+  height: 15px;
+  border-radius: 15px;
+}
+
+.progress-text {
+  display: flex;
+  color: #7B7B7B;
+  font-weight: 800;
+}
+
+.progress-text p {
+  margin-right: 5px;
+}
+

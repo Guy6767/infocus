@@ -3,10 +3,17 @@
 @import './base/base';
 
 @import './components/app';
-@import './components/authorization';
-@import './components/tasksList';
-@import './components/addTaskForm';
-@import './components/footer';
+
+@import './components/Authorization/authorization';
+
+@import './components/TaskList/tasksList';
+@import './components/TaskList/task';
+@import './components/TaskList/addTaskForm';
+
+@import './components/TaskOverview/TaskOverview';
+@import './components/TaskOverview/TaskProgressBar';
+
+@import './components/Footer/footer';
 
 
 

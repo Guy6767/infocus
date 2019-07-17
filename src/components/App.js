@@ -1,6 +1,7 @@
 import React from 'react';
 import Authorization from './Authorization/Authorization';
 import TaskList from './TaskList/TasksList';
+import TaskOverview from './TaskOverview/TaskOverview';
 import Footer from './Footer/Footer';
 
 export default class App extends React.Component {
@@ -9,9 +10,12 @@ export default class App extends React.Component {
      super(props);
      this.toggleAuth = this.toggleAuth.bind(this);  
      this.updateUserId = this.updateUserId.bind(this);
+     this.setActiveTask = this.setActiveTask.bind(this);
+
      this.state = {
        userId: '',
-       authorized: false
+       authorized: false,
+       activeTask: ''
      }
   }
 
@@ -21,7 +25,7 @@ export default class App extends React.Component {
     if (userId) {
       this.setState({userId});
       this.setState({authorized: true});
-    } 
+    }  
   }
 
   toggleAuth() {
@@ -29,7 +33,11 @@ export default class App extends React.Component {
   }
 
   updateUserId(userId) {
-    this.setState({userId})
+    this.setState({userId});
+  }
+
+  setActiveTask(task) {
+    this.setState({activeTask: task});
   }
 
   render() {
@@ -43,6 +51,8 @@ export default class App extends React.Component {
             ?
             <TaskList 
               userId={this.state.userId}
+              setActiveTask={this.setActiveTask}
+              task={this.state.activeTask}
             />
             :
             <Authorization 
@@ -51,10 +61,9 @@ export default class App extends React.Component {
             />
           }
           </aside>
-          <main>
-          </main>
+          {this.state.activeTask && <TaskOverview task={this.state.activeTask} />}
         </div>
-        <Footer userId={this.state.userId} />
+        {/*<Footer userId={this.state.userId} />*/}
       </div>
     );
   }

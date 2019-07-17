@@ -1,0 +1,56 @@
+
+.tasks-list {
+  padding: 0 20px 60px 20px;  
+}
+
+.tasks-list .toolbar {
+  color: var(--primary);
+  padding: 10px 5px 20px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.tasks-list .search {
+  border: none;
+  font-family: 'Nunito';
+  background: transparent;
+
+  transition: box-shadow, padding 0.2s;
+  &:focus {
+    box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15);
+    padding: 10px 15px;
+    border-radius: 15px;
+    background: var(--background-light);
+  }
+}
+
+.tasks-list .add-task {
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+.tasks-list .search::placeholder {
+  color: var(--primary);
+}
+
+.welcome-message {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.welcome-message h1 {
+  margin: 20px 0;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.welcome-message p {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+
+
+

@@ -17,7 +17,8 @@ export default class TaskList extends React.Component {
       filteredTasks: [],
       search: '',
       onAddTaskForm: false,
-      isLoading: false
+      isLoading: false,
+      welcomeMessage: false
     }
   }
 
@@ -43,6 +44,11 @@ export default class TaskList extends React.Component {
       console.error(error);
     }
     this.setState({isLoading: false});
+
+    if (this.state.tasks.length === 0) {
+      return this.setState({welcomeMessage: true});
+    }
+    this.setState({welcomeMessage: false});
   }
 
   updateSearchInput(e) {
@@ -84,8 +90,19 @@ export default class TaskList extends React.Component {
               <div className="loading"></div>
               :
               this.state.filteredTasks.map(task => 
-                <Task task={task} key={task._id} />
+                <Task 
+                  task={task}
+                  key={task._id}
+                  setActiveTask={this.props.setActiveTask}
+                />
               ).reverse()
+            }
+            {
+            this.state.welcomeMessage &&
+            <div className="welcome-message">
+              <h1>Welcome</h1>
+              <p>Click the add button to add a new task</p>
+            </div>
             }
           </div>
         }

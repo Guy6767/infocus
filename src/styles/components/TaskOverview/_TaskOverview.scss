@@ -1,0 +1,23 @@
+
+.task-overview-container {
+  padding: 50px 0 0 70px;
+  border-radius: 80px 0 0 0;
+  // box-shadow: rgb(0, 0, 0) 0px 0px 20px 10px inset;
+}
+
+.task-overview {
+  padding: 50px 50px 50px 65px;
+  background: var(--background-light);
+  height: 100%;
+  border-radius: 80px 0 0 0;
+  // box-shadow: 0 0 20px 10px #000000;
+}
+
+.task-overview .title {
+  font-size: 60px;
+}
+
+.task-overview .subtitle {
+  font-size: 20px;
+  color: var(--primary);
+}
