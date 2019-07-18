@@ -15,7 +15,7 @@ const CounterMessage = props => {
     <div className={props.className}>
       {hours > 0 && <p>{hours} HR </p>}
       {minutes > 0 && <p>{minutes} MIN </p>}
-      {minutes === 0 ? <p>FINISHED!</p> : <p>LEFT</p>}
+      {minutes === 0 && hours === 0 ? <p>FINISHED!</p> : <p>LEFT</p>}
     </div>
   );
 };

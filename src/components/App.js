@@ -2,7 +2,6 @@ import React from 'react';
 import Authorization from './Authorization/Authorization';
 import TaskList from './TaskList/TasksList';
 import TaskOverview from './TaskOverview/TaskOverview';
-import Footer from './Footer/Footer';
 
 export default class App extends React.Component {
 
@@ -10,11 +9,14 @@ export default class App extends React.Component {
      super(props);
      this.toggleAuth = this.toggleAuth.bind(this);  
      this.updateUserId = this.updateUserId.bind(this);
+     this.setOverviewedTask = this.setOverviewedTask.bind(this);
      this.setActiveTask = this.setActiveTask.bind(this);
+     this.stopActiveTask = this.stopActiveTask.bind(this);
 
      this.state = {
        userId: '',
        authorized: false,
+       overviewedTask: '',
        activeTask: ''
      }
   }
@@ -36,8 +38,16 @@ export default class App extends React.Component {
     this.setState({userId});
   }
 
+  setOverviewedTask(task) {
+    this.setState({overviewedTask: task});
+  }
+
   setActiveTask(task) {
     this.setState({activeTask: task});
+  }
+
+  stopActiveTask() {
+    this.setState({activeTask: ''});
   }
 
   render() {
@@ -51,8 +61,7 @@ export default class App extends React.Component {
             ?
             <TaskList 
               userId={this.state.userId}
-              setActiveTask={this.setActiveTask}
-              task={this.state.activeTask}
+              setOverviewedTask={this.setOverviewedTask}
             />
             :
             <Authorization 
@@ -61,9 +70,16 @@ export default class App extends React.Component {
             />
           }
           </aside>
-          {this.state.activeTask && <TaskOverview task={this.state.activeTask} />}
+          {
+            this.state.overviewedTask &&
+            <TaskOverview 
+              overviewedTask={this.state.overviewedTask}
+              setActiveTask={this.setActiveTask} 
+              activeTask={this.state.activeTask}
+              stopActiveTask={this.stopActiveTask}
+            />
+          }
         </div>
-        {/*<Footer userId={this.state.userId} />*/}
       </div>
     );
   }

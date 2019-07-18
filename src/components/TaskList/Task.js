@@ -3,13 +3,13 @@ import CounterMessage from '../Utils/CounterMessage';
 
 const Task = props => {
 
-    const setActiveTask = () => {
+    const setOverviewedTask = () => {
       console.log(props.task);
-      props.setActiveTask(props.task);
+      props.setOverviewedTask(props.task);
     };
 
     return (
-      <div className="task" onClick={setActiveTask} >
+      <div className="task" onClick={setOverviewedTask} >
         <h2 className="title">{props.task.title}</h2>
         <p className="subtitle">{props.task.subtitle || props.task.title}</p>
         <CounterMessage className={"time-left"} type='daily' task={props.task} />

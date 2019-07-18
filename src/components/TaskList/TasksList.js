@@ -93,7 +93,7 @@ export default class TaskList extends React.Component {
                 <Task 
                   task={task}
                   key={task._id}
-                  setActiveTask={this.props.setActiveTask}
+                  setOverviewedTask={this.props.setOverviewedTask}
                 />
               ).reverse()
             }

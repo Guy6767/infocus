@@ -1,0 +1,35 @@
+
+.task-player-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.task-player {
+  width: 50px;
+  background: var(--primary);
+  border-radius: 50%;
+
+  transition: all 0.2s;
+
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.15);
+  &:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+  }
+
+  &.play {
+    padding: 20px 10px 20px 30px;
+  }
+
+  &.pause {
+    padding: 20px 15px 20px 25px;
+  }
+}
+
+.task-player svg {
+  display: block;
+  color: white;
+  width: 80%;
+}
