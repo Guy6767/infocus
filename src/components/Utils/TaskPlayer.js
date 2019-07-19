@@ -4,17 +4,17 @@ import { ReactComponent as PauseIcon } from '../../assets/svg/pause-solid.svg';
 
 const TaskPlayer = props => {
 
-  const setActiveTask = () => {
-    return props.setActiveTask(props.task);
+  const playTask = () => {
+    return props.playTask(props.task._id);
   };
 
-  const stopActiveTask = () => {
-    return props.stopActiveTask();
+  const pauseTask = () => {
+    return props.pauseTask();
   };
 
   return (
     <div 
-      onClick={props.isPlaying ? stopActiveTask : setActiveTask} 
+      onClick={props.isPlaying ? pauseTask : playTask} 
       className={'task-player' + (props.isPlaying ? ' pause' : ' play')}
     >
       {props.isPlaying ? <PauseIcon></PauseIcon> : <PlayIcon></PlayIcon> }

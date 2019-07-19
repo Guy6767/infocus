@@ -12,14 +12,16 @@ export default class App extends React.Component {
      this.updateUserId = this.updateUserId.bind(this);
      this.loadTasks = this.loadTasks.bind(this);
      this.setOverviewedTask = this.setOverviewedTask.bind(this);
-     this.setActiveTask = this.setActiveTask.bind(this);
+     this.playTask = this.playTask.bind(this);
+     this.pauseTask = this.pauseTask.bind(this);
+     this.focus = this.focus.bind(this);
 
      this.state = {
        userId: '',
        authorized: false,
        tasks: [],
        overviewedTask: '',
-       activeTask: '',
+       activeTaskId: '',
        loadingTasks: false,
        welcomeMessage: false
      }
@@ -32,6 +34,8 @@ export default class App extends React.Component {
       this.setState({userId});
       this.setState({authorized: true});
     }  
+
+    setInterval(() => this.focus(), 1000);
   }
 
   async loadTasks() {
@@ -46,6 +50,7 @@ export default class App extends React.Component {
     catch (error) {
       console.error(error);
     }
+
     this.setState({loadingTasks: false});
 
     if (this.state.tasks.length === 0) {
@@ -66,8 +71,37 @@ export default class App extends React.Component {
     this.setState({overviewedTask: task});
   }
 
-  setActiveTask(task) {
-    this.setState({activeTask: task});
+  playTask(taskId) {
+    this.setState({activeTaskId: taskId});
+    this.focus();
+  }
+
+  pauseTask() {
+    this.setState({activeTaskId: ''});
+  }
+
+  focus() {
+
+    if (!this.state.activeTaskId) return;
+    
+    console.log('focusing...');
+
+    const tasks = this.state.tasks.map(task => {
+      if (task._id === this.state.activeTaskId) {
+        task.dailyCounter += 1;
+        task.weeklyCounter += 1;
+      }
+      return task;
+    });
+    this.setState({tasks: tasks});
+
+    /*
+      TODO: 
+      send a patch request to increment the task 
+      dailyCounter / weeklyCounter. try sending request 
+      for only counters that are  divideable by ten. this way 
+      youll send a request every ten seconds.
+    */
   }
 
   render() {
@@ -98,9 +132,9 @@ export default class App extends React.Component {
             this.state.overviewedTask &&
             <TaskOverview 
               overviewedTask={this.state.overviewedTask}
-              setActiveTask={this.setActiveTask} 
-              activeTask={this.state.activeTask}
-              stopActiveTask={this.stopActiveTask}
+              playTask={this.playTask} 
+              activeTaskId={this.state.activeTaskId}
+              pauseTask={this.pauseTask}
             />
           }
         </div>

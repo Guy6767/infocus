@@ -22,9 +22,10 @@ export default class TaskOverview extends React.Component {
 
           <div className="task-player-container">
             <TaskPlayer 
-              setActiveTask={this.props.setActiveTask} 
+              playTask={this.props.playTask} 
+              pauseTask={this.props.pauseTask}
               task={overviewedTask}
-              isPlaying={this.props.activeTask._id === this.props.overviewedTask._id}
+              isPlaying={this.props.activeTaskId === this.props.overviewedTask._id}
              />
           </div>
 
