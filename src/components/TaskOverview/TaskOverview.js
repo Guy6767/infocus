@@ -14,7 +14,7 @@ export default class TaskOverview extends React.Component {
         style={{backgroundImage: `url(${overviewedTask.imageURL})`}}
       >
         <div className="task-overview">
-          <div class="text">
+          <div className="text">
             <h1 className="title">{overviewedTask.title}</h1>
             <h2 className="subtitle">{overviewedTask.subtitle}</h2>
             <p className="description">{overviewedTask.description}</p>
@@ -23,7 +23,6 @@ export default class TaskOverview extends React.Component {
           <div className="task-player-container">
             <TaskPlayer 
               setActiveTask={this.props.setActiveTask} 
-              stopActiveTask={this.props.stopActiveTask}
               task={overviewedTask}
               isPlaying={this.props.activeTask._id === this.props.overviewedTask._id}
              />
