@@ -83,25 +83,41 @@ export default class App extends React.Component {
   focus() {
 
     if (!this.state.activeTaskId) return;
-    
-    console.log('focusing...');
 
-    const tasks = this.state.tasks.map(task => {
-      if (task._id === this.state.activeTaskId) {
-        task.dailyCounter += 1;
-        task.weeklyCounter += 1;
-      }
-      return task;
-    });
-    this.setState({tasks: tasks});
+    // currently playing task and its properties
+    const activeTask = this.state.tasks.filter(task => task._id === this.state.activeTaskId)[0];
+    const { dailyGoal, weeklyCounter, dailyCounter, weekendOff } = activeTask;
 
-    /*
-      TODO: 
-      send a patch request to increment the task 
-      dailyCounter / weeklyCounter. try sending request 
-      for only counters that are  divideable by ten. this way 
-      youll send a request every ten seconds.
-    */
+    // daily goal ✅ weekly goal ✅, pause the task (no updates)
+    const weeklyGoal = dailyGoal * (weekendOff ? 5 : 7);
+    if (dailyCounter === dailyGoal && weeklyCounter === weeklyGoal) {
+      return this.pauseTask();
+    } 
+
+    // daily goal ✅ weekly goal ❌
+    if (dailyCounter === dailyGoal && weeklyCounter < weeklyGoal) {
+      const tasks = updateClientCounters(this.state, 'weekly');
+      this.setState({tasks: tasks});
+
+      updateServerCounters(this.state, { weekly: weeklyCounter});
+    } 
+    // daily goal ❌ weekly goal ✅ 
+    else if (dailyCounter < dailyGoal && weeklyCounter === weeklyGoal) {
+      const tasks = updateClientCounters(this.state, 'daily');
+      this.setState({tasks: tasks});
+
+      updateServerCounters(this.state, { daily: dailyCounter});
+    } 
+    // daily goal ❌ weekly goal ❌ 
+    else {
+      const tasks = updateClientCounters(this.state, 'both');
+      this.setState({tasks: tasks});
+  
+      updateServerCounters(this.state, {
+        daily: activeTask.dailyCounter,
+        weekly: activeTask.weeklyCounter
+      });
+    }
   }
 
   render() {
@@ -142,4 +158,72 @@ export default class App extends React.Component {
     );
   }
 }
+
+const updateClientCounters = (state, option) => {
+
+  const tasks = state.tasks.map(task => {
+    if (task._id === state.activeTaskId) {
+      switch(option) {
+        case 'daily':
+          task.dailyCounter += 1;
+          break;
+        case 'weekly': 
+          task.weeklyCounter += 1;
+          break;
+        default:
+          task.dailyCounter += 1;
+          task.weeklyCounter += 1;
+      }
+    }
+    return task;
+  });
+  return tasks;
+};
+
+const updateServerCounters = async (state, updates) => {
+
+  // continue with the update every 10 seconds
+  if (updates.daily % 10 !== 0 && updates.weekly % 10 !== 0) return;
+  // in case the daily goal is reached, continue checking only the weekly counter
+  else if (!updates.daily && updates.weekly % 10 !== 0) return;
+
+  try {
+    if (updates.daily && !updates.weekly) {
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL}/tasks/update/${state.activeTaskId}`,
+        {
+          owner: state.userId,
+          updates: {
+            dailyCounter: updates.daily
+          }
+        }
+      );
+    } 
+    else if (!updates.daily && updates.weekly) {
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL}/tasks/update/${state.activeTaskId}`,
+        {
+          owner: state.userId,
+          updates: {
+            weeklyCounter: updates.weekly
+          }
+        }
+      );
+    } 
+    else {
+      await axios.patch(
+        `${process.env.REACT_APP_API_URL}/tasks/update/${state.activeTaskId}`,
+        {
+          owner: state.userId,
+          updates: {
+            dailyCounter: updates.daily,
+            weeklyCounter: updates.weekly
+          }
+        }
+      );
+    }  
+  } catch (error) {
+    console.error(error);
+  }
+};
 

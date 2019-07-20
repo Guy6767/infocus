@@ -8,8 +8,14 @@ const Task = props => {
       props.setOverviewedTask(props.task);
     };
 
+    const className = (
+      props.task.dailyCounter >= props.task.dailyGoal ?
+      'task finished' :
+      'task'
+    );
+
     return (
-      <div className="task" onClick={setOverviewedTask} >
+      <div className={className} onClick={setOverviewedTask} >
         <h2 className="title">{props.task.title}</h2>
         <p className="subtitle">{props.task.subtitle || props.task.title}</p>
         <CounterMessage className={"time-left"} type='daily' task={props.task} />

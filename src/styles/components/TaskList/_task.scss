@@ -54,3 +54,8 @@
 .task .time-left p {
   margin-left: 5px;
 }
+
+.task.finished .time-left {
+  color: var(--primary);
+  font-weight: 800;
+}
