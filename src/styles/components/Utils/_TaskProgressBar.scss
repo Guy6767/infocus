@@ -1,15 +1,13 @@
 
-.task-overview .bar {
+.bar {
   width: 100%;
   background: #E3E2E2; 
-  margin: 45px 0 20px 0;
   border-radius: 15px;
 }
 
-.task-overview .progress {
+.progress {
   width: 0%;
   background: var(--primary);
-  height: 15px;
   border-radius: 15px;
 
   transition: width 1s;

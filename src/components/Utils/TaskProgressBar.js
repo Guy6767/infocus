@@ -13,7 +13,7 @@ const TaskProgressBar = props => {
   );
 
   return (
-    <div className="task-progress-bar">
+    <div className="progress-bars">
       <div className="bar">
         <div className="progress" style={{width: percentage + '%'}}></div>
       </div>

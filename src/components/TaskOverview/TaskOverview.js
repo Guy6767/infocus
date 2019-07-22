@@ -12,7 +12,10 @@ export default class TaskOverview extends React.Component {
       <main 
         className="task-overview-container"
         style={{backgroundImage: `url(${overviewedTask.imageURL})`}}
-      >
+      > 
+      {
+        this.props.overviewedTask 
+        ?
         <div className="task-overview">
           <div className="text">
             <h1 className="title">{overviewedTask.title}</h1>
@@ -34,6 +37,14 @@ export default class TaskOverview extends React.Component {
             <TaskProgressBar type='weekly' task={overviewedTask} />
           </div>
         </div>
+        :
+        <div className="task-overview">
+          <div className="text">
+            <h1 className="title">Welcome</h1>
+            <h2 className="subtitle">Choose a task you want to focus on or create a new one.</h2>
+          </div>
+        </div>
+      }
       </main>
     );
   }

@@ -2,6 +2,7 @@ import React from 'react';
 import Authorization from './Authorization/Authorization';
 import TaskList from './TaskList/TasksList';
 import TaskOverview from './TaskOverview/TaskOverview';
+import Playbar from './Playbar/Playbar';
 import axios from 'axios';
 
 export default class App extends React.Component {
@@ -22,6 +23,7 @@ export default class App extends React.Component {
        tasks: [],
        overviewedTask: '',
        activeTaskId: '',
+       lastActiveTaskId: '',
        loadingTasks: false,
        welcomeMessage: false
      }
@@ -33,7 +35,7 @@ export default class App extends React.Component {
     if (userId) {
       this.setState({userId});
       this.setState({authorized: true});
-    }  
+    } 
 
     setInterval(() => this.focus(), 1000);
   }
@@ -69,11 +71,12 @@ export default class App extends React.Component {
 
   setOverviewedTask(task) {
     this.setState({overviewedTask: task});
+    localStorage.setItem('overviewedTask', JSON.stringify(task));
   }
 
   playTask(taskId) {
     this.setState({activeTaskId: taskId});
-    this.focus();
+    this.setState({lastActiveTaskId: taskId});        
   }
 
   pauseTask() {
@@ -144,16 +147,23 @@ export default class App extends React.Component {
             />
           }
           </aside>
-          {
-            this.state.overviewedTask &&
-            <TaskOverview 
-              overviewedTask={this.state.overviewedTask}
-              playTask={this.playTask} 
-              activeTaskId={this.state.activeTaskId}
-              pauseTask={this.pauseTask}
-            />
-          }
+
+          <TaskOverview 
+            overviewedTask={this.state.overviewedTask}
+            playTask={this.playTask} 
+            activeTaskId={this.state.activeTaskId}
+            pauseTask={this.pauseTask}
+          />
+         
         </div>
+          <Playbar 
+            userId={this.state.userId} 
+            tasks={this.state.tasks} 
+            activeTaskId={this.state.activeTaskId} 
+            lastActiveTaskId={this.state.lastActiveTaskId}
+            playTask={this.playTask} 
+            pauseTask={this.pauseTask}
+          />
       </div>
     );
   }
