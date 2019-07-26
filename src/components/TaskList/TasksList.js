@@ -22,7 +22,7 @@ export default class TaskList extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (this.props.tasks !== newProps.tasks) {
+    if (this.props.tasks.length !== newProps.tasks.length) {
       this.setState({filteredTasks: newProps.tasks})
     }
   }
