@@ -18,7 +18,7 @@ const Task = props => {
         <h2 className="title">{props.task.title}</h2>
         <p className="subtitle">{props.task.subtitle || props.task.title}</p>
         {
-          props.task.weekendOff && (new Date().getDay() === 1 || new Date().getDay() === 7)
+          props.task.weekendOff && (new Date().getDay() === 6 || new Date().getDay() === 7)
           ? 
           <p className="time-left">WEEKEND OFF</p>
           :
