@@ -3,11 +3,7 @@ import React from 'react';
 const CounterMessage = props => {
 
   const task = props.task;
-  const remainingSeconds = (
-    props.type === 'daily' ?
-    task.dailyGoal - task.dailyCounter :
-    task.dailyGoal * (task.weekendOff ? 5 : 7) - task.weeklyCounter
-  );
+  const remainingSeconds = task.dailyGoal - task.dailyCounter;
 
   const { hours, minutes } = secondsParser(remainingSeconds);
 

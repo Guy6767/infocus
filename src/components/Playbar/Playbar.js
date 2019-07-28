@@ -14,7 +14,7 @@ const Playbar = props => {
     <div className="playbar">
       <ProfileStatus userId={props.userId} />
       { activeTask && <p className="task-title">{activeTask.title}</p> }
-      { activeTask && <TaskProgressBar type='daily' task={activeTask} /> } 
+      { activeTask && <TaskProgressBar task={activeTask} /> } 
       { activeTask &&
          <TaskPlayer
             playTask={props.playTask} 

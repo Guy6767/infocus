@@ -5,21 +5,16 @@ const TaskProgressBar = props => {
 
   const task = props.task;
 
-  const percentage = (
-    props.type === 'daily' ?
-    100 * (task.dailyCounter / task.dailyGoal) :
-    // type === 'weekly'
-    100 * (task.weeklyCounter / (task.dailyGoal * (task.weekendOff ? 5 : 7)))
-  );
+  const percentage = 100 * (task.dailyCounter / task.dailyGoal);
 
   return (
     <div className="progress-bars">
       <div className="bar">
-        <div className="progress" style={{width: percentage + '%'}}></div>
+        <div className="progress" style={{width: (percentage > 1 ? percentage : 0) + '%'}}></div>
       </div>
       <div className="progress-text">
-        <p>{props.type === 'daily' ? 'DAILY GOAL - ' : 'WEEKLY GOAL - '}</p>
-        <CounterMessage className={"time"} type={props.type} task={task} />
+        <p>DAILY GOAL - </p>
+        <CounterMessage className={"time"} task={task} />
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ const Task = props => {
       <div className={className} onClick={setOverviewedTask} >
         <h2 className="title">{props.task.title}</h2>
         <p className="subtitle">{props.task.subtitle || props.task.title}</p>
-        <CounterMessage className={"time-left"} type='daily' task={props.task} />
+        <CounterMessage className={"time-left"} task={props.task} />
       </div>
     );
 };

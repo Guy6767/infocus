@@ -33,8 +33,7 @@ export default class TaskOverview extends React.Component {
           </div>
 
           <div className="progress-bars">
-            <TaskProgressBar type='daily' task={overviewedTask} />
-            <TaskProgressBar type='weekly' task={overviewedTask} />
+            <TaskProgressBar task={overviewedTask} />
           </div>
         </div>
         :
