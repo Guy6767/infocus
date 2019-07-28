@@ -4,7 +4,6 @@ import CounterMessage from '../Utils/CounterMessage';
 const Task = props => {
 
     const setOverviewedTask = () => {
-      console.log(props.task);
       props.setOverviewedTask(props.task);
     };
 
@@ -18,7 +17,13 @@ const Task = props => {
       <div className={className} onClick={setOverviewedTask} >
         <h2 className="title">{props.task.title}</h2>
         <p className="subtitle">{props.task.subtitle || props.task.title}</p>
-        <CounterMessage className={"time-left"} task={props.task} />
+        {
+          props.task.weekendOff && (new Date().getDay() === 1 || new Date().getDay() === 7)
+          ? 
+          <p className="time-left">WEEKEND OFF</p>
+          :
+          <CounterMessage className={"time-left"} task={props.task} />
+        }
       </div>
     );
 };

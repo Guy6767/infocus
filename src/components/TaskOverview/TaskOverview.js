@@ -22,7 +22,8 @@ export default class TaskOverview extends React.Component {
             <h2 className="subtitle">{overviewedTask.subtitle}</h2>
             <p className="description">{overviewedTask.description}</p>
           </div>
-
+          {
+          !(overviewedTask.weekendOff && (new Date().getDay() === 1 || new Date().getDay() === 7)) &&
           <div className="task-player-container">
             <TaskPlayer 
               playTask={this.props.playTask} 
@@ -31,10 +32,13 @@ export default class TaskOverview extends React.Component {
               isPlaying={this.props.activeTaskId === this.props.overviewedTask._id}
              />
           </div>
-
+          }
+          {
+          !(overviewedTask.weekendOff && (new Date().getDay() === 1 || new Date().getDay() === 7)) &&
           <div className="progress-bars">
             <TaskProgressBar task={overviewedTask} />
           </div>
+          }
         </div>
         :
         <div className="task-overview">
