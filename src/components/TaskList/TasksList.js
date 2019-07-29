@@ -34,7 +34,7 @@ export default class TaskList extends React.Component {
     if (!search) this.setState({filteredTasks: this.props.tasks});
     
     const filteredTasks = this.props.tasks.filter(task => {
-      return (task.title + task.subtitle).includes(search);
+      return (task.title.toLowerCase() + task.subtitle.toLowerCase()).includes(search);
     });
     this.setState({filteredTasks});
   }
