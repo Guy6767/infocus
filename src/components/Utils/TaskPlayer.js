@@ -12,12 +12,20 @@ const TaskPlayer = props => {
     return props.pauseTask();
   };
 
+  // dont render the play button if the task is complete
+  const className = (
+    'task-player' + 
+    (props.isPlaying ? ' pause' : ' play') +
+    (props.task.dailyGoal === props.task.dailyCounter ? ' hidden' : '')
+  ); 
+
   return (
-    <div 
-      onClick={props.isPlaying ? pauseTask : playTask} 
-      className={'task-player' + (props.isPlaying ? ' pause' : ' play')}
-    >
-      {props.isPlaying ? <PauseIcon></PauseIcon> : <PlayIcon></PlayIcon> }
+    <div>
+    { 
+      <div onClick={props.isPlaying ? pauseTask : playTask} className={className}>
+        {props.isPlaying ? <PauseIcon></PauseIcon> : <PlayIcon></PlayIcon> }
+      </div>
+    }
     </div>
   );
 };

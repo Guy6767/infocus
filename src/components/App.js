@@ -1,9 +1,11 @@
 import React from 'react';
+import axios from 'axios';
+
 import Authorization from './Authorization/Authorization';
 import TaskList from './TaskList/TasksList';
 import TaskOverview from './TaskOverview/TaskOverview';
 import Playbar from './Playbar/Playbar';
-import axios from 'axios';
+import completedSound from '../assets/music/completedSound.mp3';
 
 export default class App extends React.Component {
 
@@ -91,15 +93,17 @@ export default class App extends React.Component {
     const activeTask = this.state.tasks.filter(task => task._id === this.state.activeTaskId)[0];
     const { dailyGoal, dailyCounter } = activeTask;
 
-    // daily goal ✅ , pause the task (no updates)
-    if (dailyCounter === dailyGoal) {
-      return this.pauseTask();
-    } 
-
     const tasks = updateClientCounter(this.state);
     this.setState({tasks: tasks});
 
     updateServerCounters(this.state, dailyCounter);
+
+    // daily goal ✅ , pause the task (no updates)
+    if (dailyCounter === dailyGoal) {
+      const sound = new Audio(completedSound);
+      sound.play();
+      return this.pauseTask();
+    } 
   }
 
   render() {
@@ -152,7 +156,10 @@ const updateClientCounter = state => {
 
   const tasks = state.tasks.map(task => {
     if (task._id === state.activeTaskId) {
-      task.dailyCounter += 1;
+      if (task.dailyCounter < task.dailyGoal) {
+        task.dailyCounter += 1;
+      }
+      console.log('task dailycounter is', task.dailyCounter);
     }
     return task;
   });

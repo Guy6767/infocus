@@ -7,23 +7,21 @@ export default class TaskOverview extends React.Component {
   render() {
 
     const overviewedTask = this.props.overviewedTask;
+    const showWidgets = !(overviewedTask.weekendOff && (new Date().getDay() === 6 || new Date().getDay() === 7)) && this.props.overviewedTask;
 
     return (
       <main 
         className="task-overview-container"
         style={{backgroundImage: `url(${overviewedTask.imageURL})`}}
       > 
-      {
-        this.props.overviewedTask 
-        ?
         <div className="task-overview">
           <div className="text">
-            <h1 className="title">{overviewedTask.title}</h1>
-            <h2 className="subtitle">{overviewedTask.subtitle}</h2>
-            <p className="description">{overviewedTask.description}</p>
+            <h1 className="title">{overviewedTask ? overviewedTask.title : 'Welcome'}</h1>
+            <h2 className="subtitle">{overviewedTask ? overviewedTask.subtitle : 'Choose a task you want to focus on or create a new one.'}</h2>
+            <p className="description">{overviewedTask.description || ''}</p>
           </div>
           {
-          !(overviewedTask.weekendOff && (new Date().getDay() === 6 || new Date().getDay() === 7)) &&
+          showWidgets &&
           <div className="task-player-container">
             <TaskPlayer 
               playTask={this.props.playTask} 
@@ -34,18 +32,11 @@ export default class TaskOverview extends React.Component {
           </div>
           }
           {
-          !(overviewedTask.weekendOff && (new Date().getDay() === 6 || new Date().getDay() === 7)) &&
+          showWidgets &&
           <div className="progress-bars">
             <TaskProgressBar task={overviewedTask} />
           </div>
           }
-        </div>
-        :
-        <div className="task-overview">
-          <div className="text">
-            <h1 className="title">Welcome</h1>
-            <h2 className="subtitle">Choose a task you want to focus on or create a new one.</h2>
-          </div>
         </div>
       }
       </main>
