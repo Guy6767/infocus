@@ -46,10 +46,10 @@ export default class App extends React.Component {
     this.setState({loadingTasks: true});
 
     try {
-      const user = await axios.get(
-        `${process.env.REACT_APP_API_URL}/users/${this.state.userId}`
+      const tasks = await axios.get(
+        `${process.env.REACT_APP_API_URL}/tasks/${this.state.userId}`
       );
-      this.setState({tasks: user.data.tasks});
+      this.setState({tasks: tasks.data});
     } 
     catch (error) {
       console.error(error);
