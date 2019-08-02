@@ -130,14 +130,12 @@ export default class App extends React.Component {
             />
           }
           </aside>
-
           <TaskOverview 
             overviewedTask={this.state.overviewedTask}
             playTask={this.playTask} 
             activeTaskId={this.state.activeTaskId}
             pauseTask={this.pauseTask}
           />
-         
         </div>
           <Playbar 
             userId={this.state.userId} 
@@ -176,7 +174,10 @@ const updateServerCounters = async (state, dailyCounter) => {
       `${process.env.REACT_APP_API_URL}/tasks/update/${state.activeTaskId}`,
       {
         owner: state.userId,
-        updates: { dailyCounter }
+        updates: { 
+          dailyCounter: dailyCounter, 
+          dailyCounterUpdatedAt: new Date().toLocaleDateString()
+        }
       }
     );
   } catch (error) {
