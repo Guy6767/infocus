@@ -86,14 +86,21 @@ export default class App extends React.Component {
   }
 
   focus() {
-
+    
+    // reload the tasks at midnight
+    if (new Date().toString().slice(16, 24) === '23:59:59') {
+      this.loadTasks();
+      this.setState({activeTaskId: ''});
+    }
+    
+    // continue only if a task is being played
     if (!this.state.activeTaskId) return;
 
     // currently playing task and its properties
-    const activeTask = this.state.tasks.filter(task => task._id === this.state.activeTaskId)[0];
+    const activeTask = this.state.tasks.find(task => task._id === this.state.activeTaskId);
     const { dailyGoal, dailyCounter } = activeTask;
 
-    const tasks = updateClientCounter(this.state);
+    const tasks = updateClientCounter(this.state) 
     this.setState({tasks: tasks});
 
     updateServerCounters(this.state, dailyCounter);
@@ -157,7 +164,6 @@ const updateClientCounter = state => {
       if (task.dailyCounter < task.dailyGoal) {
         task.dailyCounter += 1;
       }
-      console.log('task dailycounter is', task.dailyCounter);
     }
     return task;
   });
