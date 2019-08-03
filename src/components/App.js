@@ -91,6 +91,7 @@ export default class App extends React.Component {
     if (new Date().toString().slice(16, 24) === '23:59:59') {
       this.loadTasks();
       this.setState({activeTaskId: ''});
+      return;
     }
     
     // continue only if a task is being played
